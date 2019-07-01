@@ -32,3 +32,133 @@ $css3-property-array: transform animation animation-delay;
   @include compatibility(animation-delay, $delay);
   @include compatibility(transform, $rotate);
 }
+@function get_attr_name($attr_name, $attr_v) {
+  @if (index($css3-property-array, $attr_name)) {
+    @return (
+      -webkit-#{$attr_name}: $attr_v;
+      -moz-#{$attr_name}: $attr_v;
+      -ms-{$attr_name}: $attr_v;
+      -o-#{$attr_name}: $attr_v;
+      #{$attr_name}: $attr_v;
+    );
+  }
+  @else {
+    @return (#{$attr_name}: $attr_v);
+  }
+}
+// 定义keyframes
+@mixin keyframes($keyframesname, $valObj) {
+  @keyframes #{$keyframesname} {
+    @each $index,$val in $valObj {
+      #{$index} {
+        @each $attr_name,$attr_v in $val {
+          #{$attr_name}: $attr_v;
+        }
+      }
+    }
+  }
+  @-webkit-keyframes #{$keyframesname} {
+    @each $index,$val in $valObj {
+      #{$index} {
+        @each $attr_name,$attr_v in $val {
+          #{$attr_name}: $attr_v;
+        }
+      }
+    }
+  }
+  @-moz-keyframes #{$keyframesname} {
+    @each $index,$val in $valObj {
+      #{$index} {
+        @each $attr_name,$attr_v in $val {
+          #{$attr_name}: $attr_v;
+        }
+      }
+    }
+  }
+  @-ms-keyframes #{$keyframesname} {
+    @each $index,$val in $valObj {
+      #{$index} {
+        @each $attr_name,$attr_v in $val {
+          #{$attr_name}: $attr_v;
+        }
+      }
+    }
+  }
+  @-o-keyframes #{$keyframesname} {
+    @each $index,$val in $valObj {
+      #{$index} {
+        @each $attr_name,$attr_v in $val {
+          #{$attr_name}: $attr_v;
+        }
+      }
+    }
+  }
+}
+
+// page调用
+.main {
+  width: 100%;
+  height: auto;
+}
+/* the first loading */ 
+.load{
+  @include size100;
+  @include load-common;
+  span{
+    position: absolute;
+    width: 30px;
+    height: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    @include span-common;
+    @include compatibility(animation, load 1.04s ease infinite);
+  }
+  @for $num from 1 to 9 {
+    span:nth-child( #{$num} ){
+      @if( $num == 1 ){
+        @include position((left: 0, top: 50%));
+        margin-top: -5px;
+        @include compatibility(animation-delay, 0.13s);
+      }      
+      @if( $num == 2 ){
+        @include position((left: 10px, top: 20px));
+        //@include compatibility(animation-delay, 0.26s);
+        //@include compatibility(transform, rotate(45deg));
+        @include delay-and-rotate(0.26s, rotate(45deg));
+      }
+      @if( $num == 3 ){
+        @include position((left: 37%, top: 10px));
+        @include delay-and-rotate(0.39s, rotate(90deg));
+      }      
+      @if( $num == 4 ){
+        @include position((right: 10px, top: 20px));
+        @include delay-and-rotate(0.52s, rotate(135deg));
+      }
+      @if( $num == 5 ){
+        @include position((right: 0, top: 50%));
+        margin-top: -5px;
+        @include delay-and-rotate(0.65s, rotate(180deg));
+      }
+      @if( $num == 6 ){
+        @include position((right: 10px, bottom: 20px));
+        @include delay-and-rotate(0.78s, rotate(225deg));
+      }
+      @if( $num == 7 ){
+        @include position((left: 37%, bottom: 10px));
+        margin-top: -15px;
+        @include delay-and-rotate(0.91s, rotate(270deg));
+      }
+      @if( $num == 8 ){
+        @include position((left: 10px, bottom: 20px));
+        @include delay-and-rotate(1.04s, rotate(315deg));
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
