@@ -1,0 +1,12 @@
+@charset "utf-8";
+$width100: 100px;
+$height100: 100px;
+$css3-property-array: transform animation animation-delay;
+
+@mixin size100 {
+  width: $width100;
+  height: $height100;
+}
+@mixin load-common {
+
+}
