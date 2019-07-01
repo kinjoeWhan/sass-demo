@@ -8,5 +8,27 @@ $css3-property-array: transform animation animation-delay;
   height: $height100;
 }
 @mixin load-common {
-
+  margin: 50px auto;
+  position: relative;
+}
+@mixin span-common: {
+  display: inline-block;
+  background: lightgreen;
+}
+// 定位
+@mixin position($val) {
+  @each $attr_name,$attr_v in $val {
+    #{$attr_name}: $attr_v;
+  }
+}
+@mixin compatibility($type $val) {
+  -webkit-#{$type}: $val;
+  -moz-#{$type}: $val;
+  -ms-{$type}: $val;
+  -o-#{$type}: $val;
+  #{$type}: $val;
+}
+@mixin delay-and-rotate($delay, $rotate) {
+  @include compatibility(animation-delay, $delay);
+  @include compatibility(transform, $rotate);
 }
